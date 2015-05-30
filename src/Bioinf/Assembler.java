@@ -10,8 +10,13 @@ public class Assembler {
 	
 	public Assembler(Graph g) {
 		g.buildGraph();
+		//g.printAllNodeEdges();
+		System.out.println("\n");
 		while (g.getNodeList().size() > 1) {
-			g.greedyAlgorithm();			
+			g.greedyAlgorithm();	
+			//g.print4GraphVizOnlyMaxEdges();
+			g.printAllNodeEdges();
+			System.out.println("\n");
 		}
 		g.print4GraphVizOnlyMaxEdges();
 		g.printAllNodeEdges();
