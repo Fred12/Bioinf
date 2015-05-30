@@ -26,7 +26,7 @@ public class Graph {
 
 	void makeAllEdges(Node a, ArrayList<Node> liste) {
 		if (liste.size() == 1) {
-			System.out.println("Nur noch 1 Knoten Vorhanden!");
+			System.out.println("Dies ist der letzte Knoten:\n");
 			a.makeEdge(a);
 			return;
 		}
@@ -155,37 +155,6 @@ public class Graph {
 		this.nodeList = nodeList;
 	}
 			
-	
-	
-	
-	public static void main(String[] args) throws IOException, FileNotFoundException {
-		  Graph graph = new Graph();
-		  FileReader fr = new FileReader("frag.dat");
-		  BufferedReader br = new BufferedReader(fr);
-		  String zeile = "";
-		
-		  while((zeile = br.readLine()) != null )
-		  {
-			  if (zeile.equals("")) {
-				  break;
-			  }
-		    Node node = new Node(zeile);
-		    graph.addNode(node);
-		  }
-		
-		  br.close();
-		  
-		  while (graph.getNodeList().size() > 1) {
-				graph.greedyAlgorithm();
-				graph.print4GraphVizOnlyMaxEdges();
-			}
-			graph.print4GraphVizOnlyMaxEdges();
-			graph.printAllNodeEdges();
-		  
-		  //Assembler assembler = new Assembler(graph);
-
-	}
-	
 }
 
 	
