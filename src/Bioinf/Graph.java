@@ -55,11 +55,11 @@ public class Graph {
 			System.out.println("Nur noch 1 Knoten Vorhanden!");			
 			return;
 		}	*/	
-		for (Node nn: nodeList) {
+		/*for (Node nn: nodeList) {
 			if (nn.getEdgeList().isEmpty()==true) {
 				nodeList.remove(nn);
 			}
-		}
+		}*/
 		sortAllEdgesInNodes();
 		sortAllNodesInGraph();
 		Edge t;
@@ -69,8 +69,10 @@ public class Graph {
 		node = this.nodeList.get(0);		
 		t = node.getMaxEdge();			
 		newSeq = t.mergeNodes();
+		
 		this.nodeList.remove(t.start);
 		this.nodeList.remove(t.end);
+		
 		//if (nodeList.size() == 0) {System.out.println("WAHR");}
 		newNode = new Node(newSeq);
 		nodeList.add(newNode);
@@ -79,6 +81,8 @@ public class Graph {
 			actualNode.getEdgeList().clear();			
 		}
 		buildGraphEdges();
+		sortAllEdgesInNodes();
+		sortAllNodesInGraph();
 		/*
 		for (Node bb: nodeList) {
 			System.out.println(bb.getEdgeList().toString());
@@ -138,9 +142,14 @@ public class Graph {
 	private void print4GraphVizOnlyMaxEdges() {		
 		Edge e;
 		System.out.println("digraph Knotenliste {" + "\n" + "   nodesep=1.0");
-		for (Node n : nodeList) {			
+		for (Node n : nodeList) {
+			if (n.getEdgeList().size()== 0) {
+				break;
+			}
+			else {
 			e = n.getMaxEdge();
-			System.out.println(e.toGraphViz());			
+			System.out.println(e.toGraphViz());	
+			}
 		}		
 		System.out.println("}");
 	}
@@ -168,13 +177,47 @@ public class Graph {
 		  graph.sortAllEdgesInNodes();
 		  //graph.sortAllNodesInGraph();
 		  //graph.printAllNodeEdges();
-		  graph.mergeAll();
-		  graph.mergeAll();
-		  graph.mergeAll();
+		  //graph.mergeAll();		 
 		  //graph.mergeNode();
 		  //graph.printAllNodeEdges();		  
 		  //graph.mergeNode();
 		  //graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();	
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();	
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();	
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();	
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();	
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		  graph.mergeNode();
+		  graph.print4GraphVizOnlyMaxEdges();
+		 
+		  
+		  
+		  
+		  
 		  /*
 		  graph.mergeNode();
 		  graph.mergeNode();
@@ -188,9 +231,8 @@ public class Graph {
 		  graph.mergeNode();
 		  graph.mergeNode();
 		  graph.mergeNode();
-		  graph.mergeNode();
 		  graph.mergeNode();*/
-		  graph.printAllNodeEdges();
+		  //graph.printAllNodeEdges();
 		  //graph.print4GraphVizOnlyMaxEdges();
 		  
 		  //graph.print4GraphVizOnlyMaxEdges();

@@ -66,7 +66,12 @@ public class Edge implements Comparable<Edge>{
 	
 	String getCommonStringSequence() {
 		s = new Sequence(start.getSequence());
+		if (end != null) {
 		return commonSeq = s.overlap(end.getSequence());		
+		}
+		else {
+			return start.getSequence();
+		}
 	}
 	
 		
@@ -87,6 +92,9 @@ public class Edge implements Comparable<Edge>{
 	}
 	
 	String toGraphViz() {
+		if (end == null) { 
+			return "   " +start.toString() + " [label=\"" + getCommonStringSequence() + getWeight() +"\"]";
+			}
 		return "   "+start.toString()+ " -> " + end.toString() + " [label=\"" + getCommonStringSequence() + getWeight() +"\"]";
 	}
 
