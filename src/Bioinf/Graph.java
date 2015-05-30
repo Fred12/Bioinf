@@ -1,5 +1,6 @@
 package Bioinf;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,18 +11,16 @@ public class Graph {
 	private ArrayList<Node> nodeList;	
 	private ArrayList<Edge> maxEdgeWeightList;
 	private int anzKnoten;
-	//private boolean edgeSorted = false;  //check ob alle Knaten pro Knoten absteigend sortiert wurden
-	//private boolean nodeSorted = false; //check ob Knoten nach Kantengewicht absteigend sortiert wurden
-	//private boolean maxGraph = false; //check ob maximum Graph konstruiert wurde
-		
+	
+	
 	public Graph() {
-		 this.nodeList = new ArrayList<Node>();	
+		 this.setNodeList(new ArrayList<Node>());	
 		 this.maxEdgeWeightList = new ArrayList<Edge>();
 		 this.anzKnoten = 0;
 	}	
 	
 	void addNode(Node n) {			
-		 this.nodeList.add(n);
+		 this.getNodeList().add(n);
 		 this.anzKnoten++;
 	}
 
@@ -42,71 +41,66 @@ public class Graph {
 	}	
 	
 	//Konstruiere alle Kanten für alle Koten im Graph
-	void buildGraphEdges() {		
-		for (Node n: this.nodeList) {
-			makeAllEdges(n, this.nodeList);
+	void buildGraph() {		
+		for (Node n: this.getNodeList()) {
+			makeAllEdges(n, this.getNodeList());
 		}		
 	}
 	
 	
-	void mergeNode() {	
+	void greedyAlgorithm() {	
 		/*
 		if (nodeList.size() == 1) {
 			System.out.println("Nur noch 1 Knoten Vorhanden!");			
 			return;
-		}	*/	
-		/*for (Node nn: nodeList) {
+		}		
+		for (Node nn: nodeList) {
 			if (nn.getEdgeList().isEmpty()==true) {
 				nodeList.remove(nn);
 			}
-		}*/
+		}
+		*/
 		sortAllEdgesInNodes();
 		sortAllNodesInGraph();
 		Edge t;
 		String newSeq;
 		Node node;	
 		Node newNode;
-		node = this.nodeList.get(0);		
-		t = node.getMaxEdge();			
-		newSeq = t.mergeNodes();
-		
-		this.nodeList.remove(t.start);
-		this.nodeList.remove(t.end);
-		
+		node = this.getNodeList().get(0);		
+		t = node.getMaxEdge();		
+		newSeq = t.mergeNodes();		
+		this.getNodeList().remove(t.start);
+		this.getNodeList().remove(t.end);
 		//if (nodeList.size() == 0) {System.out.println("WAHR");}
 		newNode = new Node(newSeq);
-		nodeList.add(newNode);
+		getNodeList().add(newNode);
 		//if (nodeList.size() == 1) {System.out.println("NUR NOCH 1 DRIN!");}
-		for (Node actualNode : this.nodeList) {				
+		for (Node actualNode : this.getNodeList()) {				
 			actualNode.getEdgeList().clear();			
 		}
-		buildGraphEdges();
+		buildGraph();
 		sortAllEdgesInNodes();
-		sortAllNodesInGraph();
-		/*
-		for (Node bb: nodeList) {
-			System.out.println(bb.getEdgeList().toString());
-		}*/
+		sortAllNodesInGraph();		
 	}
 	
 	
 	private void sortAllEdgesInNodes() {	
-		for (Node n: this.nodeList) {
+		for (Node n: this.getNodeList()) {
 			n.sortEdgeList();  //sortiert Kantenliste pro Knoten absteigend
 		}
 	}
 	
 	
 	private void sortAllNodesInGraph() {	
-		for (Node n : this.nodeList) {
-		Collections.sort(this.nodeList,Collections.reverseOrder());  //sortiert Knotenliste nach Kantengewicht absteigend
+		for (Node n : this.getNodeList()) {
+		Collections.sort(this.getNodeList(),Collections.reverseOrder());  //sortiert Knotenliste nach Kantengewicht absteigend
 		}
 	}
 	
 	
 	void printAllNodeEdges() {
 		int i = 0;
-		for (Node n : nodeList) {
+		for (Node n : getNodeList()) {
 			i++;
 			ArrayList<Edge> e = n.getEdgeList();
 			System.out.println("Knoten: " + i + "	Kanten: " + e.toString());							
@@ -115,7 +109,7 @@ public class Graph {
 	
 	private void print4GraphViz() {
 		System.out.println("digraph Knotenliste {" + "\n" + "   nodesep=1.0");
-		for (Node n : nodeList) {			
+		for (Node n : getNodeList()) {			
 			ArrayList<Edge> e = n.getEdgeList();
 			for (Edge t : e ) {
 				System.out.println(t.toGraphViz());
@@ -126,23 +120,22 @@ public class Graph {
 	
 	void buildMaxWeightGraph() {
 		Edge e;
-		for (Node n : nodeList) {			
+		for (Node n : getNodeList()) {			
 			e = n.getMaxEdge();
 			System.out.println(e.toGraphViz());								
 		}
 	}
 	
 	void mergeAll() {
-		for (int i = 0 ; i<= nodeList.size(); i++) {
-			mergeNode();
+		for (int i = 0 ; i<= getNodeList().size(); i++) {
+			greedyAlgorithm();
 		}
-	}
-		
+	}		
 	
-	private void print4GraphVizOnlyMaxEdges() {		
+	void print4GraphVizOnlyMaxEdges() {		
 		Edge e;
 		System.out.println("digraph Knotenliste {" + "\n" + "   nodesep=1.0");
-		for (Node n : nodeList) {
+		for (Node n : getNodeList()) {
 			if (n.getEdgeList().size()== 0) {
 				break;
 			}
@@ -153,10 +146,19 @@ public class Graph {
 		}		
 		System.out.println("}");
 	}
-		
 
-	public static void main(String[] args) throws IOException
-	{
+	public ArrayList<Node> getNodeList() {
+		return nodeList;
+	}
+
+	public void setNodeList(ArrayList<Node> nodeList) {
+		this.nodeList = nodeList;
+	}
+			
+	
+	
+	
+	public static void main(String[] args) throws IOException, FileNotFoundException {
 		  Graph graph = new Graph();
 		  FileReader fr = new FileReader("frag.dat");
 		  BufferedReader br = new BufferedReader(fr);
@@ -173,71 +175,15 @@ public class Graph {
 		
 		  br.close();
 		  
-		  graph.buildGraphEdges();
-		  graph.sortAllEdgesInNodes();
-		  //graph.sortAllNodesInGraph();
-		  //graph.printAllNodeEdges();
-		  //graph.mergeAll();		 
-		  //graph.mergeNode();
-		  //graph.printAllNodeEdges();		  
-		  //graph.mergeNode();
-		  //graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();	
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();	
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();	
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();	
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();	
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		  graph.mergeNode();
-		  graph.print4GraphVizOnlyMaxEdges();
-		 
+		  while (graph.getNodeList().size() > 1) {
+				graph.greedyAlgorithm();
+				graph.print4GraphVizOnlyMaxEdges();
+			}
+			graph.print4GraphVizOnlyMaxEdges();
+			graph.printAllNodeEdges();
 		  
-		  
-		  
-		  
-		  /*
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();
-		  graph.mergeNode();*/
-		  //graph.printAllNodeEdges();
-		  //graph.print4GraphVizOnlyMaxEdges();
-		  
-		  //graph.print4GraphVizOnlyMaxEdges();
-		  
-		  
+		  //Assembler assembler = new Assembler(graph);
+
 	}
 	
 }

@@ -96,7 +96,10 @@ public class Node implements Comparable<Node> {
 	}
 	
 	Edge getMaxEdge() {		
-		sortEdgeList();			
+		sortEdgeList();	
+		if (edgeList.size() ==0) {
+			return null;			
+		}
 		return edgeList.get(0);				
 	}
 

@@ -15,7 +15,7 @@ public class Edge implements Comparable<Edge>{
 	public Edge(Node n){
 		this.start = n;
 		this.end = null;
-		this.weight = 0;
+		this.weight = this.start.getSequence().length();		
 	}
 	
 	
@@ -40,12 +40,14 @@ public class Edge implements Comparable<Edge>{
 		if (this.end == null || this.end.getSequence().length() == 0) {
 			return this.start.getSequence();
 		}
+		else {
 		String newSequence;
 		int startLen = this.start.getSequence().length();
 		int endLen = this.end.getSequence().length();
 		String nodeStartCut = this.start.getSequence().substring(0, startLen - getMaxOverlapCount());		
 		newSequence = nodeStartCut + this.end.getSequence();					
 		return newSequence;
+		}
 	}
 	
 		void setWeight(int gew) {
