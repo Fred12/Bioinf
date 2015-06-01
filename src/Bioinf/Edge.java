@@ -36,18 +36,20 @@ public class Edge implements Comparable<Edge>{
 		return maxOverlap = s.maxOverlapCount(start.getSequence(),end.getSequence());
 	}
 	
-	String mergeNodes(){	
+	Node mergeNodes(){	
+		/*
 		if (this.end == null || this.end.getSequence().length() == 0) {
 			return this.start.getSequence();
 		}
-		else {
+		else {*/
 		String newSequence;
 		int startLen = this.start.getSequence().length();
 		int endLen = this.end.getSequence().length();
 		String nodeStartCut = this.start.getSequence().substring(0, startLen - getMaxOverlapCount());		
-		newSequence = nodeStartCut + this.end.getSequence();					
-		return newSequence;
-		}
+		newSequence = nodeStartCut + this.end.getSequence();	
+		Node newNode = new Node(newSequence);
+		return newNode;
+		//}
 	}
 	
 		void setWeight(int gew) {

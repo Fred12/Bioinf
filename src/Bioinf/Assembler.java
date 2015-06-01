@@ -10,22 +10,34 @@ public class Assembler {
 	
 	public Assembler(Graph g) {
 		g.buildGraph();
+		boolean lastNode = false;
 		//g.printAllNodeEdges();
 		System.out.println("\n");
-		while (g.getNodeList().size() > 1) {
+		while (!lastNode) {
+			if (g.getNodeList().size() > 1) {
 			g.greedyAlgorithm();	
 			//g.print4GraphVizOnlyMaxEdges();
 			g.printAllNodeEdges();
 			System.out.println("\n");
+			}
+			else {
+				lastNode = true;
+			}
 		}
+		
 		g.print4GraphVizOnlyMaxEdges();
 		g.printAllNodeEdges();
+		
+		GraphViz ggg = new GraphViz();
+		
+		
+		
 	}	
 
 	
 	public static void main(String[] args) throws IOException, FileNotFoundException {
 		  Graph graph = new Graph();
-		  FileReader fr = new FileReader("test.txt");
+		  FileReader fr = new FileReader("test2.txt");
 		  BufferedReader br = new BufferedReader(fr);
 		  String zeile = "";
 		
@@ -44,6 +56,6 @@ public class Assembler {
 		  Assembler assembler = new Assembler(graph);
 
 	}
-	
+		
 	
 }

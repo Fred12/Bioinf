@@ -11,6 +11,7 @@ public class Graph {
 	private ArrayList<Node> nodeList;	
 	private ArrayList<Edge> maxEdgeWeightList;
 	private int anzKnoten;
+	private Edge mightBeEmpty;
 	
 	
 	public Graph() {
@@ -49,31 +50,39 @@ public class Graph {
 	
 	
 	void greedyAlgorithm() {	
-		/*
+		
 		if (nodeList.size() == 1) {
-			System.out.println("Nur noch 1 Knoten Vorhanden!");			
+			System.out.println("Dies ist der einzig übrige Knoten, keine weitere Bearbeitung mehr möglich!");			
 			return;
-		}		
+		}	
+		/*
 		for (Node nn: nodeList) {
 			if (nn.getEdgeList().isEmpty()==true) {
 				nodeList.remove(nn);
 			}
-		}
-		*/
+		}*/
+		
 		sortAllEdgesInNodes();
 		sortAllNodesInGraph();
 		Edge t;
 		String newSeq;
 		Node node;	
 		Node newNode;
-		node = this.getNodeList().get(0);		
-		t = node.getMaxEdge();		
-		newSeq = t.mergeNodes();		
-		this.getNodeList().remove(t.start);
-		this.getNodeList().remove(t.end);
-		//if (nodeList.size() == 0) {System.out.println("WAHR");}
-		newNode = new Node(newSeq);
+		Node actual = this.getNodeList().get(0);
+		mightBeEmpty = actual.getMaxEdge();
+		while (mightBeEmpty == null) {
+			for ( int i = 1; i< getNodeList().size(); i++) {
+				Node next = getNodeList().get(i);
+				mightBeEmpty = next.getMaxEdge();
+			}
+		}
+		//node = this.getNodeList().get(0);		
+		//t = node.getMaxEdge();			
+		newNode = mightBeEmpty.mergeNodes();		
+		this.getNodeList().remove(mightBeEmpty.getFirstNode());
+		this.getNodeList().remove(mightBeEmpty.getEndNode());
 		getNodeList().add(newNode);
+		//if (nodeList.size() == 0) {System.out.println("WAHR");}		
 		//if (nodeList.size() == 1) {System.out.println("NUR NOCH 1 DRIN!");}
 		for (Node actualNode : this.getNodeList()) {				
 			actualNode.getEdgeList().clear();			
@@ -93,7 +102,7 @@ public class Graph {
 	
 	private void sortAllNodesInGraph() {	
 		for (Node n : this.getNodeList()) {
-		Collections.sort(this.getNodeList(),Collections.reverseOrder());  //sortiert Knotenliste nach Kantengewicht absteigend
+		Collections.sort(this.getNodeList(), Collections.reverseOrder());  //sortiert Knotenliste nach Kantengewicht absteigend
 		}
 	}
 	
@@ -103,7 +112,7 @@ public class Graph {
 		for (Node n : getNodeList()) {
 			i++;
 			ArrayList<Edge> e = n.getEdgeList();
-			System.out.println("Knoten: " + i + "	Kanten: " + e.toString());							
+			System.out.println("Knoten: " + i + " ("+ n.toString() + ")" +  "	Kanten: " + e.toString());							
 			}
 	}
 	
