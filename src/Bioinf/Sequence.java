@@ -137,7 +137,7 @@ public class Sequence {
 	}						
 	
 			
-	  private boolean isValid()
+	  boolean isValid()
 	   {
 	      int length = sequence.length();
 

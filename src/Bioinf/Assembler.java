@@ -6,44 +6,44 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Assembler {
-	
+	boolean existOverlap = false;
 	
 	public Assembler(Graph g) {
-		g.buildGraph();
-		boolean lastNode = false;
+		existOverlap = g.buildGraph();
+		
 		//g.printAllNodeEdges();
 		System.out.println("\n");
-		while (!lastNode) {
+		while (existOverlap) {
 			if (g.getNodeList().size() > 1) {
-			g.greedyAlgorithm();	
+			existOverlap = g.greedyAlgorithm();	
 			//g.print4GraphVizOnlyMaxEdges();
 			g.printAllNodeEdges();
 			System.out.println("\n");
 			}
 			else {
-				lastNode = true;
+				existOverlap = false;
 			}
 		}
 		
 		g.print4GraphVizOnlyMaxEdges();
 		g.printAllNodeEdges();
 		
-		GraphViz ggg = new GraphViz();
-		
-		
-		
+		//GraphViz ggg = new GraphViz();
+				
 	}	
 
 	
 	public static void main(String[] args) throws IOException, FileNotFoundException {
 		  Graph graph = new Graph();
-		  FileReader fr = new FileReader("test2.txt");
+		  FileReader fr = new FileReader("frag.dat");
 		  BufferedReader br = new BufferedReader(fr);
 		  String zeile = "";
+		  Sequence seq;
 		
 		  while((zeile = br.readLine()) != null )
 		  {
-			  if (zeile.equals("")) {
+			  seq = new Sequence(zeile);
+			  if (zeile.equals("") || !seq.isValid()) {
 				  break;
 			  }
 		    Node node = new Node(zeile);

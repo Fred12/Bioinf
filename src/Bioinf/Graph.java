@@ -12,7 +12,7 @@ public class Graph {
 	private ArrayList<Edge> maxEdgeWeightList;
 	private int anzKnoten;
 	private Edge mightBeEmpty;
-	
+	private boolean hasEdge = false;
 	
 	public Graph() {
 		 this.setNodeList(new ArrayList<Node>());	
@@ -42,18 +42,43 @@ public class Graph {
 	}	
 	
 	//Konstruiere alle Kanten für alle Koten im Graph
-	void buildGraph() {		
-		for (Node n: this.getNodeList()) {
-			makeAllEdges(n, this.getNodeList());
-		}		
+	boolean buildGraph() {
+		if (checkEdges(getNodeList(),getNodeList()) == true) {
+			for (Node n: this.getNodeList()) {			 		
+				makeAllEdges(n, this.getNodeList());
+			}
+			return true;
+			
+		}				
+		return false;			
+	}
+		
+	
+	
+	boolean checkEdges(ArrayList<Node> nodeList1, ArrayList<Node> nodeList2) {
+		
+		for (Node n1 : nodeList1) {
+			for (Node n2 : nodeList2) {
+				if (n1 == n2) {
+					continue;
+				}
+				if (n1.hasWeight(n1, n2)== true) {
+				return true;
+				}			
+			}	
+		}
+		System.out.println("Keine Überlappung mehr zwischen den Sequenzen vorhanden!");
+		return false;
 	}
 	
 	
-	void greedyAlgorithm() {	
-		
+	
+	
+	boolean greedyAlgorithm() {	
+		boolean hasEdge = false;
 		if (nodeList.size() == 1) {
 			System.out.println("Dies ist der einzig übrige Knoten, keine weitere Bearbeitung mehr möglich!");			
-			return;
+			return false;
 		}	
 		/*
 		for (Node nn: nodeList) {
@@ -87,9 +112,10 @@ public class Graph {
 		for (Node actualNode : this.getNodeList()) {				
 			actualNode.getEdgeList().clear();			
 		}
-		buildGraph();
+		hasEdge = buildGraph();
 		sortAllEdgesInNodes();
-		sortAllNodesInGraph();		
+		sortAllNodesInGraph();	
+		return hasEdge;
 	}
 	
 	
@@ -102,7 +128,7 @@ public class Graph {
 	
 	private void sortAllNodesInGraph() {	
 		for (Node n : this.getNodeList()) {
-		Collections.sort(this.getNodeList(), Collections.reverseOrder());  //sortiert Knotenliste nach Kantengewicht absteigend
+		Collections.sort(this.getNodeList(),Collections.reverseOrder());  //sortiert Knotenliste nach Kantengewicht absteigend
 		}
 	}
 	
@@ -112,7 +138,7 @@ public class Graph {
 		for (Node n : getNodeList()) {
 			i++;
 			ArrayList<Edge> e = n.getEdgeList();
-			System.out.println("Knoten: " + i + " ("+ n.toString() + ")" +  "	Kanten: " + e.toString());							
+			System.out.println("Knoten: " + i + " ("+ n.toString() + ")" + "[" + n.toString().length() + "]"  +  "	Kanten: " + e.toString());							
 			}
 	}
 	

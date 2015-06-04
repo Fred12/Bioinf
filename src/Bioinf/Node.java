@@ -64,6 +64,17 @@ public class Node implements Comparable<Node> {
 		return weight;		
 	}	
 	
+	boolean hasWeight(Node a, Node b) {
+		if (a ==b ) {
+			return false;
+		}		
+		if (getEdgeWeight(a,b) > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 	void constructAllEdges(ArrayList<Node> nodeList) {
 		for (Node n : nodeList) {
 			if (this==n) {

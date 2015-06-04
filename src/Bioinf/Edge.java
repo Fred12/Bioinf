@@ -90,7 +90,7 @@ public class Edge implements Comparable<Edge>{
 	
 	public String toString() {
 		if (end == null) { 
-			return start.toString(); 
+			return start.toString() + "(" +getCommonStringSequence() + ")" + "[" + getWeight() + "]"; 
 			}
 		return start.toString()+ "--->" + end.toString() + "==>(" +getCommonStringSequence() + ")" + "[" + getWeight() + "]";
 	}
