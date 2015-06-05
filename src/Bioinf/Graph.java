@@ -1,22 +1,16 @@
 package Bioinf;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 
 public class Graph {
 		
-	private ArrayList<Node> nodeList;	
-	private ArrayList<Edge> maxEdgeWeightList;
+	private LinkedList<Node> nodeList;	
 	private int anzKnoten;
 	private Edge mightBeEmpty;
-	private boolean hasEdge = false;
-	
 	public Graph() {
-		 this.setNodeList(new ArrayList<Node>());	
-		 this.maxEdgeWeightList = new ArrayList<Edge>();
+		 this.setNodeList(new LinkedList<Node>());	
+		 new ArrayList<Edge>();
 		 this.anzKnoten = 0;
 	}	
 	
@@ -25,7 +19,7 @@ public class Graph {
 		 this.anzKnoten++;
 	}
 
-	void makeAllEdges(Node a, ArrayList<Node> liste) {
+	void makeAllEdges(Node a, LinkedList<Node> liste) {
 		if (liste.size() == 1) {
 			System.out.println("Dies ist der letzte Knoten:\n");
 			a.makeEdge(a);
@@ -42,11 +36,12 @@ public class Graph {
 	}	
 	
 	//Konstruiere alle Kanten für alle Koten im Graph
-	boolean buildGraph() {
+	boolean buildGraph() {		
 		if (checkEdges(getNodeList(),getNodeList()) == true) {
 			for (Node n: this.getNodeList()) {			 		
 				makeAllEdges(n, this.getNodeList());
 			}
+			printAllNodeEdges();
 			return true;
 			
 		}				
@@ -55,7 +50,7 @@ public class Graph {
 		
 	
 	
-	boolean checkEdges(ArrayList<Node> nodeList1, ArrayList<Node> nodeList2) {
+	boolean checkEdges(LinkedList<Node> nodeList1, LinkedList<Node> nodeList2) {
 		
 		for (Node n1 : nodeList1) {
 			for (Node n2 : nodeList2) {
@@ -89,9 +84,6 @@ public class Graph {
 		
 		sortAllEdgesInNodes();
 		sortAllNodesInGraph();
-		Edge t;
-		String newSeq;
-		Node node;	
 		Node newNode;
 		Node actual = this.getNodeList().get(0);
 		mightBeEmpty = actual.getMaxEdge();
@@ -127,9 +119,9 @@ public class Graph {
 	
 	
 	private void sortAllNodesInGraph() {	
-		for (Node n : this.getNodeList()) {
+		//for (Node n : this.getNodeList()) {
 		Collections.sort(this.getNodeList(),Collections.reverseOrder());  //sortiert Knotenliste nach Kantengewicht absteigend
-		}
+		//}
 	}
 	
 	
@@ -182,11 +174,11 @@ public class Graph {
 		System.out.println("}");
 	}
 
-	public ArrayList<Node> getNodeList() {
+	public LinkedList<Node> getNodeList() {
 		return nodeList;
 	}
 
-	public void setNodeList(ArrayList<Node> nodeList) {
+	public void setNodeList(LinkedList<Node> nodeList) {
 		this.nodeList = nodeList;
 	}
 			

@@ -1,7 +1,5 @@
 package Bioinf;
 
-import java.util.ArrayList;
-
 public class Edge implements Comparable<Edge>{
 	
 	int weight = 0;
@@ -44,7 +42,7 @@ public class Edge implements Comparable<Edge>{
 		else {*/
 		String newSequence;
 		int startLen = this.start.getSequence().length();
-		int endLen = this.end.getSequence().length();
+		//int endLen = this.end.getSequence().length();
 		String nodeStartCut = this.start.getSequence().substring(0, startLen - getMaxOverlapCount());		
 		newSequence = nodeStartCut + this.end.getSequence();	
 		Node newNode = new Node(newSequence);

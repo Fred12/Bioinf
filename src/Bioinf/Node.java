@@ -2,6 +2,7 @@ package Bioinf;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 
 public class Node implements Comparable<Node> {
 
@@ -75,7 +76,7 @@ public class Node implements Comparable<Node> {
 	}
 	
 	
-	void constructAllEdges(ArrayList<Node> nodeList) {
+	void constructAllEdges(LinkedList<Node> nodeList) {
 		for (Node n : nodeList) {
 			if (this==n) {
 				break;

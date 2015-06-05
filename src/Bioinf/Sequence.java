@@ -1,8 +1,5 @@
 package Bioinf;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,7 +95,6 @@ public class Sequence {
 			j = sequence.length();				
 		}
 		
-		outerloop:
 		for (k = 1; k <= j; k++) {					
 				if ((sequence.substring(sequence.length()-k, sequence.length()).equals(seq.substring(0, k)))) {
 					 max = k;
@@ -125,7 +121,6 @@ public class Sequence {
 			j = seq2.length();				
 		}
 		
-		outerloop:
 		for (k = 1; k <= j; k++) {					
 				if ((seq1.substring(seq1.length()-k, seq1.length()).equals(seq2.substring(0, k)))) {
 					 max = k;

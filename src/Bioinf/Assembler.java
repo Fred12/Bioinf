@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Assembler {
+public class Assembler {	
 	boolean existOverlap = false;
 	
 	public Assembler(Graph g) {
@@ -34,8 +34,9 @@ public class Assembler {
 
 	
 	public static void main(String[] args) throws IOException, FileNotFoundException {
+		long startTime = System.currentTimeMillis();	       
 		  Graph graph = new Graph();
-		  FileReader fr = new FileReader("frag.dat");
+		  FileReader fr = new FileReader("noOverlap.txt");
 		  BufferedReader br = new BufferedReader(fr);
 		  String zeile = "";
 		  Sequence seq;
@@ -50,10 +51,12 @@ public class Assembler {
 		    graph.addNode(node);
 		  }
 		
-		  br.close();		  
+		  br.close();
+		  
 		
-		  Assembler assembler = new Assembler(graph);
-
+		  new Assembler(graph);
+		  long endTime = System.currentTimeMillis();
+	        System.out.println("\nExecution took " + (endTime - startTime) + " milliseconds");
 	}
 		
 	
