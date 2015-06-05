@@ -10,13 +10,13 @@ public class Assembler {
 	
 	public Assembler(Graph g) {
 		existOverlap = g.buildGraph();
-		
+		g.printAllNodeEdges();
 		//g.printAllNodeEdges();
 		System.out.println("\n");
 		while (existOverlap) {
 			if (g.getNodeList().size() > 1) {
 			existOverlap = g.greedyAlgorithm();	
-			//g.print4GraphVizOnlyMaxEdges();
+			//g.print4GraphVizOnlyMaxEdges();			
 			g.printAllNodeEdges();
 			System.out.println("\n");
 			}
@@ -25,8 +25,8 @@ public class Assembler {
 			}
 		}
 		
-		g.print4GraphVizOnlyMaxEdges();
-		g.printAllNodeEdges();
+		//g.print4GraphVizOnlyMaxEdges();
+		//g.printAllNodeEdges();
 		
 		//GraphViz ggg = new GraphViz();
 				
@@ -36,7 +36,7 @@ public class Assembler {
 	public static void main(String[] args) throws IOException, FileNotFoundException {
 		long startTime = System.currentTimeMillis();	       
 		  Graph graph = new Graph();
-		  FileReader fr = new FileReader("noOverlap.txt");
+		  FileReader fr = new FileReader("frag.dat");
 		  BufferedReader br = new BufferedReader(fr);
 		  String zeile = "";
 		  Sequence seq;

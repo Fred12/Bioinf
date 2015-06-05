@@ -41,7 +41,9 @@ public class Graph {
 			for (Node n: this.getNodeList()) {			 		
 				makeAllEdges(n, this.getNodeList());
 			}
-			printAllNodeEdges();
+			
+			//printAllNodeEdges();
+			//print4GraphVizOnlyMaxEdges();
 			return true;
 			
 		}				
@@ -126,6 +128,8 @@ public class Graph {
 	
 	
 	void printAllNodeEdges() {
+		sortAllEdgesInNodes();
+		sortAllNodesInGraph();
 		int i = 0;
 		for (Node n : getNodeList()) {
 			i++;

@@ -1,4 +1,7 @@
-AAAGG
+AAA
 GGGGG
 TTTT
 CCCCC
+
+
+
