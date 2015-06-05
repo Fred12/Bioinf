@@ -50,8 +50,7 @@ public class Assembler {
 		    graph.addNode(node);
 		  }
 		
-		  br.close();
-		  
+		  br.close();		  
 		
 		  Assembler assembler = new Assembler(graph);
 
