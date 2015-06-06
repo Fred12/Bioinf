@@ -76,7 +76,7 @@ import java.util.LinkedList;
 				}			
 			}	
 		}
-		System.out.println("Keine Überlappung mehr zwischen den Sequenzen vorhanden!");
+		System.out.println("\nKeine Überlappung mehr zwischen den Sequenzen vorhanden!");
 		return false;
 	}
 	

@@ -49,7 +49,7 @@ public class Assembler {
 		  long startTime = System.currentTimeMillis();	       
 		  Graph graph = new Graph();
 		  int lineCount = 0;
-		  FileReader fr = new FileReader("ws.txt");
+		  FileReader fr = new FileReader("frag.dat");
 		  BufferedReader br = new BufferedReader(fr);
 		  String zeile = "";
 		  Sequence seq;
