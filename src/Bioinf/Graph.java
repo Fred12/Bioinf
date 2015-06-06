@@ -50,13 +50,13 @@ import java.util.LinkedList;
 	}	
 	
 	//Konstruiere Graph, erzeuge alle Kanten aber prüfe vorher, ob
-	//noch Überlappungen (~Kanten) zwischen den Knoten existiert
+	//noch Ueberlappungen (~Kanten) zwischen den Knoten existiert
 	boolean buildGraph() {		
 		if (checkEdges(getNodeList(),getNodeList()) == true) {
 			for (Node n: this.getNodeList()) {			 		
 				makeAllEdges(n, this.getNodeList());
 			}			
-			return true;  	//Gibt an die Assembler Klasse den Hinweis zurück, dass es noch Überlappungen zwischen den Kanten gibt, 
+			return true;  	//Gibt an die Assembler Klasse den Hinweis zurück, dass es noch Ueberlappungen zwischen den Kanten gibt, 
 							//und somit der Greedy-Algorithmus noch gültig ist		
 		}				
 		return false;			
@@ -64,7 +64,7 @@ import java.util.LinkedList;
 		
 	
 	
-	//Überprüft ob noch Kantenübergänge/Overlaps zwischen den Knoten vorhanden sind
+	//Ueberprüft ob noch Kantenübergänge/Overlaps zwischen den Knoten vorhanden sind
 	boolean checkEdges(LinkedList<Node> nodeList1, LinkedList<Node> nodeList2) {		
 		for (Node n1 : nodeList1) {
 			for (Node n2 : nodeList2) {
@@ -76,7 +76,7 @@ import java.util.LinkedList;
 				}			
 			}	
 		}
-		System.out.println("\nKeine Überlappung mehr zwischen den Sequenzen vorhanden!");
+		System.out.println("\nKeine Ueberlappung mehr zwischen den Sequenzen vorhanden!");
 		return false;
 	}
 	
@@ -100,7 +100,7 @@ import java.util.LinkedList;
 		sortAllEdgesInNodes(); //Vorsortierung
 		sortAllNodesInGraph();		
 		/*
-		Merge-Prozess, hole Knoten mit max. Überlappung und führt diese zusammen.
+		Merge-Prozess, hole Knoten mit max. Ueberlappung und führt diese zusammen.
 		Falls der Knoten nur leere Kanten hat, gehe die Knotenliste durch und prüfe 
 		ebenso für die anderen Knoten. [veraltet, da vorher schon vorsortiert wird, 
 		und dann nur 1 Knoten übrigbleibt]

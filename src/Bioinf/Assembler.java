@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Assembler {	
 	boolean existOverlap = false;
@@ -27,7 +28,7 @@ public class Assembler {
 		System.out.println("\n");
 		while (existOverlap) {
 			if (g.getNodeList().size() > 1) {
-			g.print4GraphVizOnlyMaxEdges();	
+			//g.print4GraphVizOnlyMaxEdges();	
 			existOverlap = g.greedyAlgorithm();				
 			System.out.println("\n");
 			g.printAllNodeEdges();
@@ -39,17 +40,21 @@ public class Assembler {
 			}
 		}
 		
-		g.print4GraphVizOnlyMaxEdges();
+		//g.print4GraphVizOnlyMaxEdges();
 		//g.printAllNodeEdges();		
 		//GraphViz ggg = new GraphViz();				
 	}	
 
 	
 	public static void main(String[] args) throws IOException, FileNotFoundException {
-		  long startTime = System.currentTimeMillis();	       
+		  //long startTime = System.currentTimeMillis();	   
+		  Scanner scanner = new Scanner(System.in); 
+		  System.out.println("Bitte den Namen zur einzulesenden Datei angeben (muss im selben Programmverzeichnis liegen!)");
+		  String eingabe = scanner.next();
+		  long startTime = System.currentTimeMillis();	 
 		  Graph graph = new Graph();
 		  int lineCount = 0;
-		  FileReader fr = new FileReader("frag.dat");
+		  FileReader fr = new FileReader(eingabe);
 		  BufferedReader br = new BufferedReader(fr);
 		  String zeile = "";
 		  Sequence seq;
