@@ -47,15 +47,26 @@ public class Assembler {
 
 	
 	public static void main(String[] args) throws IOException, FileNotFoundException {
+		  BufferedReader br = null;		  
+		  boolean weiter = true;
 		  //long startTime = System.currentTimeMillis();	   
 		  Scanner scanner = new Scanner(System.in); 
-		  System.out.println("Bitte den Namen zur einzulesenden Datei angeben (muss im selben Programmverzeichnis liegen!)");
+		  while (weiter) {
+			  
+		  
+		  System.out.println("Bitte den Namen zur einzulesenden Datei eingeben (muss im gleichen Programmverzeichnis liegen!)");
 		  String eingabe = scanner.next();
 		  long startTime = System.currentTimeMillis();	 
 		  Graph graph = new Graph();
 		  int lineCount = 0;
-		  FileReader fr = new FileReader(eingabe);
-		  BufferedReader br = new BufferedReader(fr);
+		  try {
+			  FileReader fr = new FileReader(eingabe);		  
+			  br = new BufferedReader(fr);
+		  }	
+		  catch ( IOException e ) {
+			  System.err.println( "Fehler beim Lesen der Datei! (Stellen Sie sicher, dass die Datei existiert!)" );
+		  }
+		  
 		  String zeile = "";
 		  Sequence seq;
 		
@@ -86,7 +97,28 @@ public class Assembler {
 		  new Assembler(graph);
 		  long endTime = System.currentTimeMillis();
 	      System.out.println("\nExecution took " + (endTime - startTime) + " milliseconds");
+	      boolean fragen = true;
+	      
+	      while (fragen) {
+	    	  System.out.println("\nWollen Sie weitermachen? Bitte (j/n) eingeben: ");
+	    	  eingabe = scanner.next();
+	    	  if (eingabe.equals("n") || eingabe.equals("N")) {
+	    	 	weiter = false;	
+	    	 	fragen = false;
+	    	 	System.out.println("Auf Wiedersehen!");
+	    	  }
+	    	  else if (eingabe.equals("j") || eingabe.equals("J")) {
+	    		  fragen = false;    		  
+	    		  continue;
+	    	  }
+	    	  else {
+	    		  System.out.println("Falsche Eingabe!");
+	    	  }
+	      }
 	}
+		  
+}
+
 		
 	
 }
