@@ -56,11 +56,13 @@ public class Assembler {
 		
 		  while((zeile = br.readLine()) != null )
 		  {
-			  ++lineCount;			 
+			  ++lineCount;	
+			  zeile= zeile.trim();
 			  
+			  /*
 			  if (zeile.contains(" ")) {
 				  zeile = zeile.replaceAll(" ", "");				 
-			  }
+			  }*/
 			  
 			  seq = new Sequence(zeile);
 			  
