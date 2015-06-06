@@ -49,19 +49,26 @@ public class Assembler {
 		  long startTime = System.currentTimeMillis();	       
 		  Graph graph = new Graph();
 		  int lineCount = 0;
-		  FileReader fr = new FileReader("frag.dat");
+		  FileReader fr = new FileReader("ws.txt");
 		  BufferedReader br = new BufferedReader(fr);
 		  String zeile = "";
 		  Sequence seq;
 		
 		  while((zeile = br.readLine()) != null )
 		  {
-			  ++lineCount;
+			  ++lineCount;			 
+			  
+			  if (zeile.contains(" ")) {
+				  zeile = zeile.replaceAll(" ", "");				 
+			  }
+			  
 			  seq = new Sequence(zeile);
-			  if (zeile.equals("") || !seq.isValid(lineCount)) {
+			  
+			  if (zeile.equals("") || !seq.isValid(lineCount)) {				  
 				  //break;
 				  continue;
-			  }
+			  }	
+			  
 		    Node node = new Node(zeile);
 		    graph.addNode(node);
 		    

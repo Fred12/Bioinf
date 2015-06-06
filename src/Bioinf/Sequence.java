@@ -23,7 +23,7 @@ public class Sequence {
 	String commonString;
 	String sequence;
 	StringBuffer sb;	
-	private Pattern noDNA = Pattern.compile("([^ACGT])");
+	private Pattern noDNA = Pattern.compile("([^ACGT])"); //Leerzeichen ist drin
 	
 	public Sequence() {
 		
