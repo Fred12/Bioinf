@@ -1,3 +1,14 @@
+/**
+ *  Die Klasse Node.java ist eine Klasse zum Erzeugen von Knoten
+ *  die als Wert einen String (~DNA-Sequenz) haben.
+ *   
+ *  
+ *
+ *  @author Marc Ludovici
+ *  @Course Bioinformatik 
+ *  @Date	6.05.2015
+ **/
+
 package Bioinf;
 
 import java.util.ArrayList;
@@ -43,6 +54,7 @@ public class Node implements Comparable<Node> {
 		return this.sequence;
 	}
 	
+	//Falls nur 1 Knoten, setze eigene Sequenz als Kante
 	void makeEdge(Node a) {
 		Edge g = new Edge(a);
 		a.setEdge(g);

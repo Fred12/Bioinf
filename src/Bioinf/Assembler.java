@@ -1,3 +1,16 @@
+/**
+ *  Die Klasse Assembler.java ist eine Klasse mit Main-Methode
+ *  zum Starten des Programms. Diese Klasse vereint alle übrigen
+ *  Klassen und benutzt diese zum korrekten Ausführen des Programms. 
+ *   
+ *  
+ *
+ *  @author Marc Ludovici
+ *  @Course Bioinformatik 
+ *  @Date	6.05.2015
+ **/
+
+
 package Bioinf;
 
 import java.io.BufferedReader;
@@ -10,14 +23,15 @@ public class Assembler {
 	
 	public Assembler(Graph g) {
 		existOverlap = g.buildGraph();
-		g.printAllNodeEdges();
-		//g.printAllNodeEdges();
+		g.printAllNodeEdges();		
 		System.out.println("\n");
 		while (existOverlap) {
 			if (g.getNodeList().size() > 1) {
-			existOverlap = g.greedyAlgorithm();	
-			//g.print4GraphVizOnlyMaxEdges();			
+			g.print4GraphVizOnlyMaxEdges();	
+			existOverlap = g.greedyAlgorithm();				
+			System.out.println("\n");
 			g.printAllNodeEdges();
+			//g.print4GraphVizOnlyMaxEdges();	
 			System.out.println("\n");
 			}
 			else {
@@ -25,38 +39,39 @@ public class Assembler {
 			}
 		}
 		
-		//g.print4GraphVizOnlyMaxEdges();
-		//g.printAllNodeEdges();
-		
-		//GraphViz ggg = new GraphViz();
-				
+		g.print4GraphVizOnlyMaxEdges();
+		//g.printAllNodeEdges();		
+		//GraphViz ggg = new GraphViz();				
 	}	
 
 	
 	public static void main(String[] args) throws IOException, FileNotFoundException {
-		long startTime = System.currentTimeMillis();	       
+		  long startTime = System.currentTimeMillis();	       
 		  Graph graph = new Graph();
-		  FileReader fr = new FileReader("frag.dat");
+		  int lineCount = 0;
+		  FileReader fr = new FileReader("ws.txt");
 		  BufferedReader br = new BufferedReader(fr);
 		  String zeile = "";
 		  Sequence seq;
 		
 		  while((zeile = br.readLine()) != null )
 		  {
+			  ++lineCount;
 			  seq = new Sequence(zeile);
-			  if (zeile.equals("") || !seq.isValid()) {
-				  break;
+			  if (zeile.equals("") || !seq.isValid(lineCount)) {
+				  //break;
+				  continue;
 			  }
 		    Node node = new Node(zeile);
 		    graph.addNode(node);
+		    
 		  }
 		
-		  br.close();
-		  
+		  br.close(); 
 		
 		  new Assembler(graph);
 		  long endTime = System.currentTimeMillis();
-	        System.out.println("\nExecution took " + (endTime - startTime) + " milliseconds");
+	      System.out.println("\nExecution took " + (endTime - startTime) + " milliseconds");
 	}
 		
 	

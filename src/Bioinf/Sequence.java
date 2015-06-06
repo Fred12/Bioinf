@@ -1,3 +1,14 @@
+/**
+ *  Die Klasse Sequence.java ist eine Hilfsklasse zum Erzeugen und Überprüfen
+ *  von gültigen DNA-Sequenzen.
+ *  
+ *  
+ *
+ *  @author Marc Ludovici
+ *  @Course Bioinformatik 
+ *  @Date	6.05.2015
+ **/
+
 package Bioinf;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -177,6 +188,29 @@ public class Sequence {
 	         return true;
 	      }
 	   }	  
+	  
+	  boolean isValid(int i)
+	   {
+	      int length = sequence.length();
+
+	      if (length == 0)
+	      {
+	    	  System.out.println("Keine gültige DNA Sequenz. Leerer String.");
+	         return false;
+	      }
+
+	      Matcher m = noDNA.matcher(sequence);
+	      boolean isNotDNA = m.find();
+	      if ( isNotDNA )
+	      {
+	         System.out.println("Keine gültige DNA Sequenz. Ungültiges Zeichen '" + m.group() + "' gefunden in Zeile " + i +". ");
+	         return false;
+	      }
+	      else
+	      {
+	         return true;
+	      }
+	   }
 	
 	public String toString() {			
 			return sequence;

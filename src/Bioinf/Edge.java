@@ -1,3 +1,15 @@
+/**
+ *  Die Klasse Edge.java ist eineKlasse zum Erzeugen von Kanten
+ *  zwischen zwei Knoten (~DNA-Sequenzen), falls diese einen Overlap 
+ *  gemeinsam haben.
+ *  
+ *  
+ *
+ *  @author Marc Ludovici
+ *  @Course Bioinformatik 
+ *  @Date	6.05.2015
+ **/
+
 package Bioinf;
 
 public class Edge implements Comparable<Edge>{
@@ -65,6 +77,7 @@ public class Edge implements Comparable<Edge>{
 	Node getEndNode() {
 		return end;
 	}
+
 	
 	String getCommonStringSequence() {
 		s = new Sequence(start.getSequence());

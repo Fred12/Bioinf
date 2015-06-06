@@ -1,24 +1,38 @@
+/**
+ *  Die Klasse Graph.java ist eine Klasse zum Erzeugen 
+ *  und Aufbau eines Graphen mit gültigen Knoten und Kanten.
+ *   
+ *  
+ *
+ *  @author Marc Ludovici
+ *  @Course Bioinformatik 
+ *  @Date	6.05.2015
+ **/
+
+
 package Bioinf;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
-public class Graph {
-		
+	//Erzeuge Graph;
+	public class Graph {		
 	private LinkedList<Node> nodeList;	
 	private int anzKnoten;
 	private Edge mightBeEmpty;
 	public Graph() {
-		 this.setNodeList(new LinkedList<Node>());	
+		 nodeList = new LinkedList<Node>();	
 		 new ArrayList<Edge>();
 		 this.anzKnoten = 0;
 	}	
-	
+
+	//Knoten dem Graphen hinzufügen
 	void addNode(Node n) {			
 		 this.getNodeList().add(n);
 		 this.anzKnoten++;
 	}
-
+	
+	//Kanten zwischen allen Knoten im Graphen erzeugen
 	void makeAllEdges(Node a, LinkedList<Node> liste) {
 		if (liste.size() == 1) {
 			System.out.println("Dies ist der letzte Knoten:\n");
@@ -35,25 +49,23 @@ public class Graph {
 		}
 	}	
 	
-	//Konstruiere alle Kanten für alle Koten im Graph
+	//Konstruiere Graph, erzeuge alle Kanten aber prüfe vorher, ob
+	//noch Überlappungen (~Kanten) zwischen den Knoten existiert
 	boolean buildGraph() {		
 		if (checkEdges(getNodeList(),getNodeList()) == true) {
 			for (Node n: this.getNodeList()) {			 		
 				makeAllEdges(n, this.getNodeList());
-			}
-			
-			//printAllNodeEdges();
-			//print4GraphVizOnlyMaxEdges();
-			return true;
-			
+			}			
+			return true;  	//Gibt an die Assembler Klasse den Hinweis zurück, dass es noch Überlappungen zwischen den Kanten gibt, 
+							//und somit der Greedy-Algorithmus noch gültig ist		
 		}				
 		return false;			
 	}
 		
 	
 	
-	boolean checkEdges(LinkedList<Node> nodeList1, LinkedList<Node> nodeList2) {
-		
+	//Überprüft ob noch Kantenübergänge/Overlaps zwischen den Knoten vorhanden sind
+	boolean checkEdges(LinkedList<Node> nodeList1, LinkedList<Node> nodeList2) {		
 		for (Node n1 : nodeList1) {
 			for (Node n2 : nodeList2) {
 				if (n1 == n2) {
@@ -70,7 +82,8 @@ public class Graph {
 	
 	
 	
-	
+	//Greedy Algorithmus, dieser sortiert alle Knoten und Kanten nach aufsteigendem Gewicht, und führt Knoten
+	//mit maximaler Kantenüberlappung in einem Merge-Prozess zusammen
 	boolean greedyAlgorithm() {	
 		boolean hasEdge = false;
 		if (nodeList.size() == 1) {
@@ -84,19 +97,31 @@ public class Graph {
 			}
 		}*/
 		
-		sortAllEdgesInNodes();
-		sortAllNodesInGraph();
+		sortAllEdgesInNodes(); //Vorsortierung
+		sortAllNodesInGraph();		
+		/*
+		Merge-Prozess, hole Knoten mit max. Überlappung und führt diese zusammen.
+		Falls der Knoten nur leere Kanten hat, gehe die Knotenliste durch und prüfe 
+		ebenso für die anderen Knoten. [veraltet, da vorher schon vorsortiert wird, 
+		und dann nur 1 Knoten übrigbleibt]
+		Die Methode checkEdges() muss vorher sicherstellen,dass es noch Kanten 
+		gibt, sonst würde der Algorithmus unendlich laufen.
+		*/
 		Node newNode;
 		Node actual = this.getNodeList().get(0);
 		mightBeEmpty = actual.getMaxEdge();
+		if (mightBeEmpty == null) {
+			return false;
+		}
+		/*
 		while (mightBeEmpty == null) {
 			for ( int i = 1; i< getNodeList().size(); i++) {
 				Node next = getNodeList().get(i);
 				mightBeEmpty = next.getMaxEdge();
 			}
 		}
-		//node = this.getNodeList().get(0);		
-		//t = node.getMaxEdge();			
+		*/
+		
 		newNode = mightBeEmpty.mergeNodes();		
 		this.getNodeList().remove(mightBeEmpty.getFirstNode());
 		this.getNodeList().remove(mightBeEmpty.getEndNode());
@@ -127,6 +152,7 @@ public class Graph {
 	}
 	
 	
+	//Gib alle Knoten mit Kanten aus
 	void printAllNodeEdges() {
 		sortAllEdgesInNodes();
 		sortAllNodesInGraph();
@@ -138,6 +164,7 @@ public class Graph {
 			}
 	}
 	
+	//Ausgabeformat mit allen Knoten und Kanten für Graphviz
 	private void print4GraphViz() {
 		System.out.println("digraph Knotenliste {" + "\n" + "   nodesep=1.0");
 		for (Node n : getNodeList()) {			
@@ -149,6 +176,7 @@ public class Graph {
 		System.out.println("}");
 	}
 	
+	/*
 	void buildMaxWeightGraph() {
 		Edge e;
 		for (Node n : getNodeList()) {			
@@ -162,14 +190,22 @@ public class Graph {
 			greedyAlgorithm();
 		}
 	}		
+	*/
 	
+	//Ausgabeformat nur mit aktuellen maximalen Knoten und Kanten für Graphviz
 	void print4GraphVizOnlyMaxEdges() {		
 		Edge e;
 		System.out.println("digraph Knotenliste {" + "\n" + "   nodesep=1.0");
-		for (Node n : getNodeList()) {
+		for (Node n : getNodeList()) {	
+			/*
+			if (getNodeList().size() == 1) {
+				System.out.println("   "+n.toString() +"\n" + "}");
+				return;
+			}			*/
 			if (n.getEdgeList().size()== 0) {
-				break;
-			}
+				System.out.println("   "+n.toString());
+				//break;
+			}			
 			else {
 			e = n.getMaxEdge();
 			System.out.println(e.toGraphViz());	
@@ -180,10 +216,6 @@ public class Graph {
 
 	public LinkedList<Node> getNodeList() {
 		return nodeList;
-	}
-
-	public void setNodeList(LinkedList<Node> nodeList) {
-		this.nodeList = nodeList;
 	}
 			
 }
