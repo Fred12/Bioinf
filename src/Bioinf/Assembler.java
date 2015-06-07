@@ -21,18 +21,27 @@ import java.util.Scanner;
 
 public class Assembler {	
 	boolean existOverlap = false;
+	int imageCount = 0;
+	String graphString;
+	Proba p;
 	
 	public Assembler(Graph g) {
 		existOverlap = g.buildGraph();
-		g.printAllNodeEdges();		
+		g.print4GraphVizOnlyMaxEdges();		
+		g.printAllNodeEdges();	
+		//g.callGraphViz();	
 		System.out.println("\n");
+		
+		
 		while (existOverlap) {
-			if (g.getNodeList().size() > 1) {
-			//g.print4GraphVizOnlyMaxEdges();	
+			if (g.getNodeList().size() > 1) {			
 			existOverlap = g.greedyAlgorithm();				
 			System.out.println("\n");
-			g.printAllNodeEdges();
-			//g.print4GraphVizOnlyMaxEdges();	
+			
+			g.print4GraphVizOnlyMaxEdges();	
+			g.printAllNodeEdges();				
+			//g.callGraphViz();
+			
 			System.out.println("\n");
 			}
 			else {
@@ -49,13 +58,16 @@ public class Assembler {
 	public static void main(String[] args) throws IOException, FileNotFoundException {
 		  BufferedReader br = null;		  
 		  boolean weiter = true;
+		  boolean fragen = true;
+		  
 		  //long startTime = System.currentTimeMillis();	   
 		  Scanner scanner = new Scanner(System.in); 
-		  while (weiter) {
-			  
+		  while (weiter) {			  
 		  
 		  System.out.println("Bitte den Namen zur einzulesenden Datei eingeben (muss im gleichen Programmverzeichnis liegen!)");
 		  String eingabe = scanner.next();
+		  
+		  
 		  long startTime = System.currentTimeMillis();	 
 		  Graph graph = new Graph();
 		  int lineCount = 0;
@@ -95,9 +107,12 @@ public class Assembler {
 		  br.close(); 
 		
 		  new Assembler(graph);
+		  
 		  long endTime = System.currentTimeMillis();
+		  
 	      System.out.println("\nExecution took " + (endTime - startTime) + " milliseconds");
-	      boolean fragen = true;
+	      
+	      
 	      
 	      while (fragen) {
 	    	  System.out.println("\nWollen Sie weitermachen? Bitte (j/n) eingeben: ");
@@ -116,7 +131,7 @@ public class Assembler {
 	    	  }
 	      }
 	}
-		  
+		scanner.close();  
 }
 
 		

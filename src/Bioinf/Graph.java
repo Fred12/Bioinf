@@ -20,6 +20,12 @@ import java.util.LinkedList;
 	private LinkedList<Node> nodeList;	
 	private int anzKnoten;
 	private Edge mightBeEmpty;
+	StringBuffer graphVizString; 
+	int imageCount = 0;
+	Proba p;
+	
+	String s;
+	
 	public Graph() {
 		 nodeList = new LinkedList<Node>();	
 		 new ArrayList<Edge>();
@@ -165,15 +171,27 @@ import java.util.LinkedList;
 	}
 	
 	//Ausgabeformat mit allen Knoten und Kanten für Graphviz
-	private void print4GraphViz() {
-		System.out.println("digraph Knotenliste {" + "\n" + "   nodesep=1.0");
+	void print4GraphViz() {
+		graphVizString = new StringBuffer();
+		graphVizString.append("digraph Knotenliste {" + "\n" + "   nodesep=1.0" + "\n");
+		//System.out.println("digraph Knotenliste {" + "\n" + "   nodesep=1.0");
+		
 		for (Node n : getNodeList()) {			
 			ArrayList<Edge> e = n.getEdgeList();
+			if (n.getEdgeList().size()== 0) {
+				graphVizString.append("\n" + "   " + n.toString());
+				//System.out.println("   "+n.toString());
+				break;
+			}
 			for (Edge t : e ) {
-				System.out.println(t.toGraphViz());
+				graphVizString.append("\n" + "   " + t.toGraphViz());
+				//System.out.println(t.toGraphViz());
 			}								
 		}
-		System.out.println("}");
+		graphVizString.append("\n" + "}" + "\n");
+		s = new String(graphVizString.toString());
+		//System.out.println("}");
+		System.out.println(s);
 	}
 	
 	/*
@@ -194,8 +212,10 @@ import java.util.LinkedList;
 	
 	//Ausgabeformat nur mit aktuellen maximalen Knoten und Kanten für Graphviz
 	void print4GraphVizOnlyMaxEdges() {		
-		Edge e;
-		System.out.println("digraph Knotenliste {" + "\n" + "   nodesep=1.0");
+		Edge e;		
+		graphVizString = new StringBuffer();
+		graphVizString.append("digraph Knotenliste {" + "\n" + "   nodesep=1.0" + "\n");
+		//System.out.println("digraph Knotenliste {" + "\n" + "   nodesep=1.0");
 		for (Node n : getNodeList()) {	
 			/*
 			if (getNodeList().size() == 1) {
@@ -203,19 +223,35 @@ import java.util.LinkedList;
 				return;
 			}			*/
 			if (n.getEdgeList().size()== 0) {
-				System.out.println("   "+n.toString());
+				graphVizString.append("\n" + "   " +n.toString());
+				//System.out.println("   "+n.toString());
 				//break;
 			}			
 			else {
 			e = n.getMaxEdge();
-			System.out.println(e.toGraphViz());	
+			graphVizString.append("\n" + "   "+e.toGraphViz());
+			//System.out.println(e.toGraphViz());	
 			}
-		}		
-		System.out.println("}");
+		}	
+		graphVizString.append("\n" + "}" +"\n");
+		s = new String(graphVizString.toString());
+		//System.out.println("}");
+		System.out.println(s);
+	}
+	
+	String getGraphVizString() {		
+		return s;
 	}
 
 	public LinkedList<Node> getNodeList() {
 		return nodeList;
+	}
+	
+	void callGraphViz() {	
+		++imageCount;
+		String graphString = getGraphVizString();
+		p = new Proba();		
+		p.start2(graphString, imageCount);
 	}
 			
 }

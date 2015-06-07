@@ -108,9 +108,9 @@ public class Edge implements Comparable<Edge>{
 	
 	String toGraphViz() {
 		if (end == null) { 
-			return "   " +start.toString() + " [label=\"" + getCommonStringSequence() + getWeight() +"\"]";
+			return  start.toString() + " [label=\"" + getCommonStringSequence() + getWeight() +"\"]";
 			}
-		return "   "+start.toString()+ " -> " + end.toString() + " [label=\"" + getCommonStringSequence() + getWeight() +"\"]";
+		return  start.toString()+ " -> " + end.toString() + " [label=\"" + getCommonStringSequence() + getWeight() +"\"]";
 	}
 
 	@Override
