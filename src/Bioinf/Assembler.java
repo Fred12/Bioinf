@@ -29,7 +29,7 @@ public class Assembler {
 		existOverlap = g.buildGraph();
 		g.print4GraphVizOnlyMaxEdges();		
 		g.printAllNodeEdges();	
-		//g.callGraphViz();	
+		g.callGraphViz();	
 		System.out.println("\n");
 		
 		
@@ -40,7 +40,7 @@ public class Assembler {
 			
 			g.print4GraphVizOnlyMaxEdges();	
 			g.printAllNodeEdges();				
-			//g.callGraphViz();
+			g.callGraphViz();
 			
 			System.out.println("\n");
 			}

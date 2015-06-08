@@ -21,7 +21,7 @@ import java.util.LinkedList;
 	private int anzKnoten;
 	private Edge mightBeEmpty;
 	StringBuffer graphVizString; 
-	int imageCount = 0;
+	int imageCount = 100;
 	Proba p;
 	
 	String s;
